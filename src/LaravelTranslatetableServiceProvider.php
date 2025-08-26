@@ -48,19 +48,7 @@ class LaravelTranslatetableServiceProvider extends PackageServiceProvider
                 GenerateTranslationsCommand::class
             )
             ->hasInstallCommand(function (InstallCommand $command) {
-                $command->info('Thank you for downloading my package!');
                 $command->askToStarRepoOnGitHub('nietthijmen/laravel-translatetable');
-
-                $buyMeACoffeeQuestion = $command->confirm('If you like the project, please donate to my buymeacoffee');
-                if ($buyMeACoffeeQuestion) {
-                    $hasOpened = self::openLink(self::$buymeacoffee);
-                    if (! $hasOpened) {
-                        $command->info('Please visit '.self::$buymeacoffee);
-                    }
-                    $command->info('Thank you so much for donating!');
-                }
-
-                $command->info('The package is fully installed, please read the README over on github');
             });
     }
 }

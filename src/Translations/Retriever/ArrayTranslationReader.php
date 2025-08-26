@@ -2,8 +2,6 @@
 
 namespace NietThijmen\LaravelTranslatetable\Translations\Retriever;
 
-use Illuminate\Support\Facades\Lang;
-
 class ArrayTranslationReader extends FileSystemTranslationReader implements TranslationRetriever
 {
     /**
@@ -13,18 +11,15 @@ class ArrayTranslationReader extends FileSystemTranslationReader implements Tran
     public function getNamespaces(string $language): array
     {
         $namespaces = [];
+        
+        $path = $this->getBasePath();
 
-        // @phpstan-ignore-next-line this is fine as we throw an exception if the language system is not supported.
-        $paths = Lang::getLoader()->paths();
-
-        foreach ($paths as $path) {
-            $langPath = $path.DIRECTORY_SEPARATOR.$language;
-            if (is_dir($langPath)) {
-                $files = scandir($langPath);
-                foreach ($files as $file) {
-                    if (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
-                        $namespaces[] = pathinfo($file, PATHINFO_FILENAME);
-                    }
+        $langPath = $path.DIRECTORY_SEPARATOR.$language;
+        if (is_dir($langPath)) {
+            $files = scandir($langPath);
+            foreach ($files as $file) {
+                if (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+                    $namespaces[] = pathinfo($file, PATHINFO_FILENAME);
                 }
             }
         }
@@ -39,15 +34,13 @@ class ArrayTranslationReader extends FileSystemTranslationReader implements Tran
     {
         // get all unique translations for a language and namespace
         $translations = [];
-        // @phpstan-ignore-next-line this is fine as we throw an exception if the language system is not supported.
-        $paths = Lang::getLoader()->paths();
-        foreach ($paths as $path) {
-            $filePath = $path.DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$namespace.'.php';
-            if (file_exists($filePath)) {
-                $loadedTranslations = include $filePath;
-                if (is_array($loadedTranslations)) {
-                    $translations = array_merge($translations, $loadedTranslations);
-                }
+        $path = $this->getBasePath();
+
+        $filePath = $path.DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$namespace.'.php';
+        if (file_exists($filePath)) {
+            $loadedTranslations = include $filePath;
+            if (is_array($loadedTranslations)) {
+                $translations = array_merge($translations, $loadedTranslations);
             }
         }
 

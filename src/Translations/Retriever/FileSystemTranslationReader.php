@@ -2,41 +2,39 @@
 
 namespace NietThijmen\LaravelTranslatetable\Translations\Retriever;
 
-use Illuminate\Support\Facades\Lang;
-use NietThijmen\LaravelTranslatetable\Exceptions\LanguageSystemNotSupported;
-
 abstract class FileSystemTranslationReader implements TranslationRetriever
 {
+    public function getBasePath(): string
+    {
+        return app()->basePath('lang');
+    }
+
     /**
      * {@inheritDoc}
-     *
-     * @throws LanguageSystemNotSupported if the language system is not supported
      */
     public function getLanguages(): array
     {
         $languages = [];
 
-        try {
-            // @phpstan-ignore-next-line this is fine as we throw an exception if the language system is not supported.
-            $paths = Lang::getLoader()->paths();
+        $path = $this->getBasePath();
 
-            foreach ($paths as $path) {
-                if (is_dir($path)) {
-                    $dirs = scandir($path);
-                    foreach ($dirs as $dir) {
-                        if ($dir === '.' || $dir === '..') {
-                            continue;
-                        }
-                        if (is_dir($path.DIRECTORY_SEPARATOR.$dir)) {
-                            $languages[] = $dir;
-                        }
+        if (is_dir($path)) {
+            $dirs = scandir($path);
+            foreach ($dirs as $dir) {
+                if ($dir === '.' || $dir === '..') {
+                    continue;
+                }
+                if (is_dir($path.DIRECTORY_SEPARATOR.$dir)) {
+                    $languages[] = $dir;
+                }
+
+                if (is_file($path.DIRECTORY_SEPARATOR.$dir)) {
+                    $extension = pathinfo($dir, PATHINFO_EXTENSION);
+                    if ($extension === 'json') {
+                        $languages[] = pathinfo($dir, PATHINFO_FILENAME);
                     }
                 }
             }
-        } catch (\Exception $e) {
-            throw new LanguageSystemNotSupported(
-                'The selected language system is not supported: '.$e->getMessage()
-            );
         }
 
         return array_unique($languages);
