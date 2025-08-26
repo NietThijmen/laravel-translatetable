@@ -11,7 +11,7 @@ class ArrayTranslationReader extends FileSystemTranslationReader implements Tran
     public function getNamespaces(string $language): array
     {
         $namespaces = [];
-        
+
         $path = $this->getBasePath();
 
         $langPath = $path.DIRECTORY_SEPARATOR.$language;

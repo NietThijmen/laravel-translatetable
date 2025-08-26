@@ -16,13 +16,9 @@ class GenerateSpreadsheetCommand extends Command
     protected $description = 'Generate a spreadsheet of all translations in your application';
 
     /**
-     * @param Worksheet $sheet
-     * @param array<string, string|array> $data
-     * @param int $row
-     * @param int $languageIndex
-     * @param string $key
+     * @param  array<string, string|array>  $data
      * @return void
-     * // @phpstan-ignore-next-line TODO: Get this working with phpstan as the types are correct (ugh)
+     *              // @phpstan-ignore-next-line TODO: Get this working with phpstan as the types are correct (ugh)
      */
     protected function handleRecursiveSpreadsheetArray(
         Worksheet $sheet,
@@ -30,11 +26,11 @@ class GenerateSpreadsheetCommand extends Command
         int &$row,
         int $languageIndex,
         string $key
-    ): void
-    {
+    ): void {
         foreach ($data as $subKey => $subValue) {
-            if(is_array($subValue)) {
+            if (is_array($subValue)) {
                 $this->handleRecursiveSpreadsheetArray($sheet, $subValue, $row, $languageIndex, "{$key}.{$subKey}");
+
                 continue;
             }
 
@@ -47,7 +43,6 @@ class GenerateSpreadsheetCommand extends Command
         }
 
     }
-
 
     public function handle(): int
     {
