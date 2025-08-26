@@ -140,6 +140,12 @@ class GenerateSpreadsheetCommand extends Command
         }
 
         $output = $this->option('output') ?? 'translations.xlsx';
+
+        if(!is_string($output)) {
+            $this->error("Invalid output path");
+            return 0;
+        }
+
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
         $writer->save($output);
         $this->info("Spreadsheet generated at {$output}");
