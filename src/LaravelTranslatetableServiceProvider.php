@@ -12,16 +12,21 @@ class LaravelTranslatetableServiceProvider extends PackageServiceProvider
 
     public static function openLink(
         string $url
-    ) {
+    ): bool {
         if (PHP_OS_FAMILY == 'Darwin') {
             exec("open {$url}");
+            return true;
         }
         if (PHP_OS_FAMILY == 'Windows') {
             exec("start {$url}");
+            return true;
         }
         if (PHP_OS_FAMILY == 'Linux') {
             exec("xdg-open {$url}");
+            return true;
         }
+
+        return false;
     }
 
     public function configurePackage(Package $package): void
@@ -39,7 +44,10 @@ class LaravelTranslatetableServiceProvider extends PackageServiceProvider
 
                 $buyMeACoffeeQuestion = $command->confirm('If you like the project, please donate to my buymeacoffee');
                 if ($buyMeACoffeeQuestion) {
-                    self::openLink(self::$buymeacoffee);
+                    $hasOpened = self::openLink(self::$buymeacoffee);
+                    if (! $hasOpened) {
+                        $command->info('Please visit '.self::$buymeacoffee);
+                    }
                     $command->info('Thank you so much for donating!');
                 }
 
