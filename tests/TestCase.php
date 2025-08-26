@@ -2,7 +2,6 @@
 
 namespace NietThijmen\LaravelTranslatetable\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use NietThijmen\LaravelTranslatetable\LaravelTranslatetableServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
