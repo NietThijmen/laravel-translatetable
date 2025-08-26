@@ -1,22 +1,26 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "nietthijmen/laravel-translatetable",
+    "description": "import & export your laravel translations to a excel spreadsheet ",
     "keywords": [
-        ":vendor_name",
+        "NietThijmen",
         "laravel",
-        ":package_slug"
+        "laravel-translatetable",
+        "translations",
+        "excel",
+        "dx",
+        "developer tools"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/nietthijmen/laravel-translatetable",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "NietThijmen",
+            "email": "thijmen@rierink.dev",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.4",
+        "php": "^8.2",
         "spatie/laravel-package-tools": "^1.16",
         "illuminate/contracts": "^11.0||^12.0"
     },
@@ -30,18 +34,17 @@
         "pestphp/pest-plugin-laravel": "^4.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan-deprecation-rules": "^2.0",
-        "phpstan/phpstan-phpunit": "^2.0",
-        "spatie/laravel-ray": "^1.35"
+        "phpstan/phpstan-phpunit": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "NietThijmen\\LaravelTranslatetable\\": "src/",
+            "NietThijmen\\LaravelTranslatetable\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "NietThijmen\\LaravelTranslatetable\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +66,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "NietThijmen\\LaravelTranslatetable\\LaravelTranslatetableServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelTranslatetable": "NietThijmen\\LaravelTranslatetable\\Facades\\LaravelTranslatetable"
             }
         }
     },
