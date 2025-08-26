@@ -141,8 +141,9 @@ class GenerateSpreadsheetCommand extends Command
 
         $output = $this->option('output') ?? 'translations.xlsx';
 
-        if(!is_string($output)) {
-            $this->error("Invalid output path");
+        if (! is_string($output)) {
+            $this->error('Invalid output path');
+
             return 0;
         }
 
