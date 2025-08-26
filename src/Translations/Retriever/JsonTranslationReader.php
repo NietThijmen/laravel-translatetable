@@ -29,11 +29,9 @@ class JsonTranslationReader extends FileSystemTranslationReader implements Trans
             $file = $path.DIRECTORY_SEPARATOR.$language.'.json';
             if (is_file($file)) {
                 $fileContent = file_get_contents($file);
-                if( $fileContent === false ) {
+                if ($fileContent === false) {
                     continue;
                 }
-
-
 
                 // @phpstan-ignore-next-line argument.type it will match as we check is_file above.
                 $content = json_decode(file_get_contents($file), true);

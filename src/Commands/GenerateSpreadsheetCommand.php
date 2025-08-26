@@ -13,6 +13,7 @@ class GenerateSpreadsheetCommand extends Command
     public function handle(): int
     {
         $this->info('This command is not implemented yet.');
+
         return 1;
     }
 }

@@ -24,6 +24,7 @@ class GenerateTranslationsCommand extends Command
         }
 
         $this->info('This command is not implemented yet.');
+
         return 0;
     }
 }
